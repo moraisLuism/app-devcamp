@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </>
       )}
-      {isAdminLoggedIn && route === "home" ? (
+      {isAdminLoggedIn && user && route === "home" ? (
         <>
           <div
             className="text-4xl text-white cursor-pointer"
