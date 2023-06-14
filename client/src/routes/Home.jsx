@@ -1,35 +1,55 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getProducts } from "../firebase/productController";
 import { AppContext } from "../App";
-import { updateProduct } from "../firebase/productController";
+import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
 
 const Home = () => {
+  const [loading, setLoading] = useState(false);
   const { setCart } = useContext(AppContext);
-  const [products, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [cartCounts, setCartCounts] = useState({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
-
+  const [name] = useState("");
+  const [price] = useState("");
+  const [stock] = useState("");
+  const [img] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const initializeProducts = async () => {
-      try {
-        const p = await getProducts();
-        setProduct([...p]);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    initializeProducts();
+    fetchProducts();
   }, []);
 
-  /*useEffect(() => {
-    if (imagesLoaded) {
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        "https://app-api-server.vercel.app/api/products/"
+      );
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
     }
-  }, [imagesLoaded]);*/
+  };
 
+  const updateProduct = async (productId) => {
+    try {
+      setLoading(true);
+      await axios.put(
+        `https://app-api-server.vercel.app/api/products/${productId}`,
+        {
+          name,
+          price,
+          stock,
+          img,
+        }
+      );
+      fetchProducts();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleImageLoad = () => {
     setImagesLoaded(true);
   };
@@ -86,13 +106,13 @@ const Home = () => {
   };
 
   const updateStock = (productId, newStock) => {
-    setProduct((currentProducts) => {
+    setProducts((currentProducts) => {
       const updatedProduct = currentProducts.find(
-        (product) => product.id === productId
+        (product) => product._id === productId
       );
       if (updatedProduct) {
         const updatedProductData = {
-          id: updatedProduct.id,
+          id: updatedProduct._id,
           name: updatedProduct.name,
           price: updatedProduct.price,
           img: updatedProduct.img,
@@ -100,7 +120,7 @@ const Home = () => {
         };
         updateProduct(updatedProductData);
         return currentProducts.map((product) =>
-          product.id === productId ? { ...product, stock: newStock } : product
+          product._id === productId ? { ...product, stock: newStock } : product
         );
       }
       return currentProducts;

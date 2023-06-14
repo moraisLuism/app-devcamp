@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../App";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const ConfirmBuy = () => {
   const { cart, setCart, setRoute } = useContext(AppContext);
@@ -10,7 +11,29 @@ const ConfirmBuy = () => {
     return acc + curr.quantity * curr.price;
   }, 0);
 
-  const confirm = () => {
+  const confirm = async (productId, name, price, stock, img) => {
+    try {
+      await axios.put(
+        `https://app-api-server.vercel.app/api/products/${productId}`,
+        {
+          name,
+          price,
+          stock,
+          img,
+        }
+      );
+      //fetchProducts();
+      setCart([]);
+      setRoute("home");
+      toast.success("Successful purchase", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /*const confirm = () => {
     setCart((currentItems) => {
       return currentItems.map((item) => {
         return { ...item, quantity: 0, price: 0 };
@@ -20,7 +43,7 @@ const ConfirmBuy = () => {
     toast.success(`Successful purchase`, {
       position: toast.POSITION.TOP_CENTER,
     });
-  };
+  };*/
 
   return (
     <div className="flex flex-col gap-2 items-center">
@@ -67,7 +90,6 @@ const ConfirmBuy = () => {
             )}
           </tbody>
         </table>
-
         <div className="border-t border-sky-600"></div>
         <div className="text-lg font-medium mt-2">
           <div className=" flex justify-end">
@@ -75,6 +97,16 @@ const ConfirmBuy = () => {
           </div>
         </div>
         <div className="border-t border-sky-600"></div>
+        {/*<button
+          className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
+          onClick={() => {
+            const productId = "";
+            const stock = "";
+            confirm(productId, stock);
+          }}
+        >
+          CONFIRM
+        </button>*/}
         <button
           className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
           onClick={() => {

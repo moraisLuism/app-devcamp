@@ -4,6 +4,8 @@ import { BsFillCartFill } from "react-icons/bs";
 import { AppContext } from "../App";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+const API_URL = "https://app-api-server.vercel.app/api";
 
 const auth = getAuth();
 
@@ -32,6 +34,18 @@ const Header = () => {
       });
   };
 
+  /*const logout = async () => {
+    try {
+      await axios.put(`${API_URL}/products/reset`);
+
+      setRoute("home");
+      setUser(null);
+      setCartCountTotal(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };*/
+
   const emptyTheCart = () => {
     setCart((currentItems) => {
       return currentItems.map((item) => {
@@ -55,7 +69,7 @@ const Header = () => {
             {cart.map(
               (item) =>
                 item.quantity !== 0 && (
-                  <tr key={item.id}>
+                  <tr key={item._id}>
                     <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg font-medium mt-2">
                       {item.name}
                     </td>

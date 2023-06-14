@@ -48,6 +48,7 @@ const Footer = () => {
           </div>
         </>
       )}
+
       {isAdminLoggedIn && user && route === "home" ? (
         <>
           <div

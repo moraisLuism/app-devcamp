@@ -1,4 +1,4 @@
-## app-devcamp
+## ecommerce-devcamp
 
 Final full-stack project done using React, Express, Github, CSS, SCSS, mongoDB, JavaScript, HTML, Firebase, Axios ... and hosted on Vercel and Firebase.
 
@@ -62,5 +62,6 @@ This Project is Distribuited under The MIT License
 
 ## Contact
 
-> [morais.luism@gmail.com] &nbsp;&middot;&nbsp;
-> GitHub [@moraisLuism](https://github.com/moraisLuism) &nbsp;&middot;&nbsp;
+> Mail (morais.luism@gmail.com)
+
+> GitHub (https://github.com/moraisLuism)
