@@ -6,23 +6,21 @@ import axios from "axios";
 
 const ConfirmBuy = () => {
   const { cart, setCart, setRoute } = useContext(AppContext);
-
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + curr.quantity * curr.price;
   }, 0);
 
-  const confirm = async (productId, name, price, stock, img) => {
+  const confirm = async () => {
     try {
-      await axios.put(
-        `https://app-api-server.vercel.app/api/products/${productId}`,
-        {
-          name,
-          price,
-          stock,
-          img,
-        }
-      );
-      //fetchProducts();
+      for (const item of cart) {
+        const { id, stock, quantity } = item;
+        const updatedStock = stock - quantity;
+
+        await axios.put(
+          `https://app-api-server.vercel.app/api/products/${id}`,
+          { stock: updatedStock }
+        );
+      }
       setCart([]);
       setRoute("home");
       toast.success("Successful purchase", {
@@ -30,20 +28,14 @@ const ConfirmBuy = () => {
       });
     } catch (error) {
       console.error(error);
+      toast.error(
+        "An error occurred while confirming the purchase. Please try again",
+        {
+          position: toast.POSITION.TOP_CENTER,
+        }
+      );
     }
   };
-
-  /*const confirm = () => {
-    setCart((currentItems) => {
-      return currentItems.map((item) => {
-        return { ...item, quantity: 0, price: 0 };
-      });
-    });
-    setRoute("home");
-    toast.success(`Successful purchase`, {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };*/
 
   return (
     <div className="flex flex-col gap-2 items-center">
@@ -97,21 +89,9 @@ const ConfirmBuy = () => {
           </div>
         </div>
         <div className="border-t border-sky-600"></div>
-        {/*<button
-          className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
-          onClick={() => {
-            const productId = "";
-            const stock = "";
-            confirm(productId, stock);
-          }}
-        >
-          CONFIRM
-        </button>*/}
         <button
           className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
-          onClick={() => {
-            confirm();
-          }}
+          onClick={confirm}
         >
           CONFIRM
         </button>

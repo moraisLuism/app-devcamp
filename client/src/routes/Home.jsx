@@ -5,15 +5,11 @@ import ProductCard from "../components/ProductCard";
 import Pagination from "../components/Pagination";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
+  const setLoading = useState(false);
   const { setCart } = useContext(AppContext);
   const [products, setProducts] = useState([]);
   const [cartCounts, setCartCounts] = useState({});
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [name] = useState("");
-  const [price] = useState("");
-  const [stock] = useState("");
-  const [img] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -25,23 +21,24 @@ const Home = () => {
       const response = await axios.get(
         "https://app-api-server.vercel.app/api/products/"
       );
-      setProducts(response.data);
+      const productsWithStock = response.data.map((product) => {
+        return {
+          ...product,
+          stock: product.stock || 0,
+        };
+      });
+      setProducts(productsWithStock);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const updateProduct = async (productId) => {
+  const updateProduct = async (productId, updatedProductData) => {
     try {
       setLoading(true);
       await axios.put(
         `https://app-api-server.vercel.app/api/products/${productId}`,
-        {
-          name,
-          price,
-          stock,
-          img,
-        }
+        updatedProductData
       );
       fetchProducts();
     } catch (error) {
@@ -66,13 +63,13 @@ const Home = () => {
       if (isItemFound) {
         return currentItems.map((item) => {
           if (item.id === id) {
-            return { ...item, quantity: item.quantity + 1, price, name };
+            return { ...item, quantity: item.quantity + 1 };
           } else {
             return item;
           }
         });
       } else {
-        return [...currentItems, { id, name, quantity: 1, price }];
+        return [...currentItems, { id, name, quantity: 1, price, stock }];
       }
     });
     setCartCounts((prevCounts) => ({
@@ -111,14 +108,16 @@ const Home = () => {
         (product) => product._id === productId
       );
       if (updatedProduct) {
+        const { _id, name, price, img } = updatedProduct;
         const updatedProductData = {
-          id: updatedProduct._id,
-          name: updatedProduct.name,
-          price: updatedProduct.price,
-          img: updatedProduct.img,
+          _id,
+          name,
+          price,
+          img,
           stock: newStock,
         };
-        updateProduct(updatedProductData);
+
+        updateProduct(productId, updatedProductData);
         return currentProducts.map((product) =>
           product._id === productId ? { ...product, stock: newStock } : product
         );
@@ -132,12 +131,13 @@ const Home = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
         {productsToShow.map((product) => (
           <ProductCard
-            key={product.id}
+            key={product._id}
             product={product}
             cartCounts={cartCounts}
             addToCart={addToCart}
             removeFromTheCart={removeFromTheCart}
             updateStock={updateStock}
+            stock={product.stock}
           />
         ))}
       </div>

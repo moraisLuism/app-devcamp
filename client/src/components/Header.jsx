@@ -4,14 +4,13 @@ import { BsFillCartFill } from "react-icons/bs";
 import { AppContext } from "../App";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-const API_URL = "https://app-api-server.vercel.app/api";
 
 const auth = getAuth();
 
 const Header = () => {
   const { route, setRoute, user, setUser } = useContext(AppContext);
   const { cart, setCart } = useContext(AppContext);
+  const [setCartCountTotal] = useState(0);
   const quantity = cart.reduce((acc, curr) => {
     return acc + curr.quantity;
   }, 0);
@@ -19,8 +18,6 @@ const Header = () => {
   const totalPrice = cart.reduce((acc, curr) => {
     return acc + curr.quantity * curr.price;
   }, 0);
-
-  const [setCartCountTotal] = useState(0);
 
   const logout = () => {
     signOut(auth)
@@ -33,18 +30,6 @@ const Header = () => {
         console.error(error);
       });
   };
-
-  /*const logout = async () => {
-    try {
-      await axios.put(`${API_URL}/products/reset`);
-
-      setRoute("home");
-      setUser(null);
-      setCartCountTotal(null);
-    } catch (error) {
-      console.error(error);
-    }
-  };*/
 
   const emptyTheCart = () => {
     setCart((currentItems) => {

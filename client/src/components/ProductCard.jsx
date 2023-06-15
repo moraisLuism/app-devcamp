@@ -4,9 +4,8 @@ import { AppContext } from "../App";
 const ProductCard = React.memo(
   ({ product, cartCounts, addToCart, removeFromTheCart, updateStock }) => {
     const { user } = useContext(AppContext);
-
     const handleAddToCart = () => {
-      if (product.stock !== 0) {
+      if (product.stock > 0) {
         addToCart(product._id, product.price, product.name, product.stock);
         updateStock(product._id, product.stock - 1);
       }
@@ -39,7 +38,6 @@ const ProductCard = React.memo(
         <div className="font-semibold">{product.price} €</div>
         <div className="border-t border-sky-600"></div>
         <div className="font-semibold">{product.stock} UDS</div>
-
         {user ? (
           <>
             <div className="border-t border-sky-600"></div>
