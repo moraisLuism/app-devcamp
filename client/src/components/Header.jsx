@@ -92,12 +92,7 @@ const Header = () => {
     <>
       {route !== "db" ? (
         <header className="h-20 w-full bg-gray-100 shadow-lg flex items-center justify-between px-8 fixed top-0">
-          <div className="flex items-center gap-2">
-            <BsFillCartFill className="text-2xl text-sky-600" />
-            <span className="text-base font-semibold text-sky-600">
-              Ecommerce devCamp
-            </span>
-          </div>
+          <div className="flex items-center gap-2"></div>
           {user &&
             quantity !== 0 &&
             route !== "ConfirmBuy" &&
@@ -138,11 +133,11 @@ const Header = () => {
               <>
                 {route !== "db" && (
                   <>
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-2">
                       <div>
                         <span className="text-xs font-semibold text-sky-600">
-                          If you want to make a purchase you must log in or
-                          register if you have not done so yet
+                          If you want to make a purchase you must register and
+                          log in
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
