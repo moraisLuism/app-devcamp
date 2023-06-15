@@ -55,13 +55,13 @@ const Header = () => {
               (item) =>
                 item.quantity !== 0 && (
                   <tr key={item._id}>
-                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg font-medium mt-2 sm:text-xs">
+                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg sm:text-xs font-medium mt-2 ">
                       {item.name}
                     </td>
-                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg font-medium mt-2 sm:text-xs">
+                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg sm:text-xs font-medium mt-2 ">
                       {item.quantity}
                     </td>
-                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg font-medium mt-2 sm:text-xs">
+                    <td className="px-6 py-4  text-gray-800 whitespace-nowrap text-lg sm:text-xs font-medium mt-2 ">
                       {item.price} €
                     </td>
                   </tr>
@@ -93,8 +93,8 @@ const Header = () => {
       {route !== "db" ? (
         <header className="h-20 w-full bg-gray-100 shadow-lg flex items-center justify-between px-8 fixed top-0">
           <div className="flex items-center gap-2">
-            <BsFillCartFill className="text-2xl text-sky-600 sm:text-xs" />
-            <span className="text-xl font-semibold text-sky-600 sm:text-xs">
+            <BsFillCartFill className="text-2xl sm:text-xs text-sky-600" />
+            <span className="text-xl sm:text-xs font-semibold text-sky-600">
               Ecommerce devCamp
             </span>
           </div>
@@ -105,10 +105,10 @@ const Header = () => {
               <>
                 <div className="flex items-center gap-2">
                   <BsFillCartFill
-                    className="text-4xl text-sky-600 cart-action hover: transition sm:text-xs"
+                    className="text-4xl sm:text-xs text-sky-600 cart-action hover: transition"
                     onClick={clickToCart}
                   />
-                  <span className="text-3xl font-semibold text-sky-700 sm:text-xs">
+                  <span className="text-3xl sm:text-xs font-semibold text-sky-700">
                     {quantity}
                   </span>
                   <ToastContainer />
@@ -140,7 +140,7 @@ const Header = () => {
                   <>
                     <div className="flex items-center gap-8">
                       <div>
-                        <span className="text-xl font-semibold text-sky-600 sm:text-xs">
+                        <span className="text-xl sm:text-xs font-semibold text-sky-600">
                           If you want to make a purchase you must log in or
                           register if you have not done so yet
                         </span>

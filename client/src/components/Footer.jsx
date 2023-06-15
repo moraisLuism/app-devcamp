@@ -23,15 +23,15 @@ const Footer = () => {
     <div className="fixed h-16 w-full bg-sky-600 bottom-0 flex justify-evenly items-center">
       <div className="flex items-center gap-2">
         {user && (
-          <p className="text-xl font-semibold text-white sm:text-xs">
+          <p className="text-xl sm:text-xs font-semibold text-white">
             User logged in: {user.email}
           </p>
         )}
       </div>
 
       <div className="flex items-center gap-2">
-        <BsFillCartFill className="text-2xl text-white sm:text-xs" />
-        <span className="text-xl font-semibold text-white sm:text-xs">
+        <BsFillCartFill className="text-2xl sm:text-xs text-white" />
+        <span className="text-xl sm:text-xs font-semibold text-white">
           Ecommerce devCamp
         </span>
       </div>
@@ -40,7 +40,7 @@ const Footer = () => {
         <>
           <div className="flex items-center gap-2">
             <div
-              className="text-4xl text-white cursor-pointer sm:text-xs"
+              className="text-4xl sm:text-xs text-white cursor-pointer"
               onClick={handleHomeClick}
             >
               <IoHomeSharp />
@@ -52,7 +52,7 @@ const Footer = () => {
       {isAdminLoggedIn && user && route === "home" ? (
         <>
           <div
-            className="text-4xl text-white cursor-pointer sm:text-xs"
+            className="text-4xl sm:text-xs text-white cursor-pointer"
             onClick={handleDbClick}
           >
             <BsList />
