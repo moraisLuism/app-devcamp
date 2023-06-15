@@ -138,18 +138,28 @@ const Header = () => {
               <>
                 {route !== "db" && (
                   <>
-                    <button
-                      className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
-                      onClick={() => setRoute("login")}
-                    >
-                      Login
-                    </button>
-                    <button
-                      className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
-                      onClick={() => setRoute("register")}
-                    >
-                      Register
-                    </button>
+                    <div className="flex items-center gap-8">
+                      <div>
+                        <span className="text-xl font-semibold text-sky-600">
+                          If you want to make a purchase you must log in or
+                          register if you have not done so yet
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
+                          onClick={() => setRoute("login")}
+                        >
+                          Login
+                        </button>
+                        <button
+                          className="bg-sky-500 text-white py-3 px-4 rounded hover:bg-sky-700 transition"
+                          onClick={() => setRoute("register")}
+                        >
+                          Register
+                        </button>
+                      </div>
+                    </div>
                   </>
                 )}
               </>

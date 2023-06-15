@@ -2,14 +2,18 @@ import React from "react";
 
 const ProductList = ({ products, handleEdit, deleteProduct }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mt-4">
       {products.map((product) => (
         <div
           key={product._id}
           className="rounded-lg border border-sky-600 p-4 flex flex-col gap-2"
         >
           <div className="font-semibold">
-            <img className="object-cover h-48 w-48" src={product.img} alt="" />
+            <img
+              className="object-scale-down h-48 w-96"
+              src={product.img}
+              alt=""
+            />
           </div>
           <div className="border-t border-sky-600"></div>
           <div className="font-semibold">{product.name}</div>

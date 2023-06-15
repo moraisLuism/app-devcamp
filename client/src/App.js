@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { app } from "./firebase/index";
+import { app } from "./firebase";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./routes/Home";

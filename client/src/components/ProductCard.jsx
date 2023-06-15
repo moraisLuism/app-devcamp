@@ -20,6 +20,7 @@ const ProductCard = React.memo(
       <div
         key={product._id}
         className="rounded-lg border border-sky-600 p-4 flex flex-col gap-2"
+        //className="rounded-lg border border-sky-600 p-4 flex flex-col gap-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
       >
         {cartCounts[product._id] > 0 && user && (
           <span className="p-1 bg-sky-500 rounded text-xl font-semibold text-white">
@@ -28,7 +29,11 @@ const ProductCard = React.memo(
         )}
         <div className="border-t border-sky-600"></div>
         <div>
-          <img className="object-cover h-48 w-48" src={product.img} alt="" />
+          <img
+            className="object-scale-down h-48 w-96"
+            src={product.img}
+            alt=""
+          />
         </div>
         <div className="border-t border-sky-600"></div>
         <div className="flex gap-2">
