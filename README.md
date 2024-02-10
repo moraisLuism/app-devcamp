@@ -2,6 +2,8 @@
 
 Final full-stack project done using React, Express, Github, CSS, SCSS, mongoDB, JavaScript, HTML, Firebase, Axios ... and hosted on Vercel and Firebase.
 
+<div align="center"><img src="./img/ecommerce-devcamp.png" /></div>
+
 ## Features
 
 - View a list of products
@@ -61,8 +63,6 @@ Luis Miguel Morais Muñoz
 This Project is Distribuited under The MIT License
 
 ## Hosting
-
-> server URL: https://app-api-server.vercel.app/
 
 > client URL: https://app-firebase-56326.web.app/
 
